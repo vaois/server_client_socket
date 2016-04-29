@@ -1,0 +1,2 @@
+# server_client_socket
+Through under LINUX SOCKET (SOCKET) programming to realize a simple ECHO server, including server and client two applications, the client to the server sends a string of characters to the server, and then the server after receiving the characters give him back to the client, and to join the client's IP address information in front of the string (ECHO) process. Reference: socket, listen, accept, send, recv, connect, etc. 
