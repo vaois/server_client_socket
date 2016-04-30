@@ -2,6 +2,7 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #define PORT 7000
 
 int main ()
@@ -16,16 +17,17 @@ int main ()
 	server.sin_port = htons(PORT);
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
 	bind(s, (struct  sockaddr*)&server, sizeof(server));
+	printf("server waiting...");
 	listen(s, 1);
 	
+	namelen = sizeof(client);
+	ns = accept(s, (struct sockaddr*)&client, &namelen);
 	for(;;){
-		namelen = sizeof(client);
-	    ns = accept(s, (struct sockaddr*)&client, &namelen);
+		
 		pktlen = recv(ns, buf, sizeof(buf), 0);
 		if(pktlen == 0)
 			break;
-		printf("Received line:%s\n",buf );
-		send(ns,ntohl(INADDR_ANY),4,0);
+		printf("Received line:%s  from IP: %s\n",buf ,inet_ntoa(client.sin_addr));
 		send(ns, buf,pktlen, 0);
 	}
 	close(ns);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <arpa/in.h>
 #include <netinet/in.h>
 
 #define PORT 7000
@@ -30,7 +31,7 @@ int main()
 			break;
 		send(s, buf1, buflen + 1, 0);
 		recv(s, buf2, sizeof(buf2), 0);
-		printf("Received line:%s\n",buf2 );
+		printf("Received line:IP : %s   %s\n",inrt_ntoa(server.sin_addr),buf2 );
 	}
 	close(s);
 }
