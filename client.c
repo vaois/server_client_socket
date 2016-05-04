@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <arpa/in.h>
+#include <arpa/inet.h>
 #include <netinet/in.h>
 
 #define PORT 7000
