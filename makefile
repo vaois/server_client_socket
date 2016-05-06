@@ -1,11 +1,38 @@
-all:server client
-server:server.o
-	gcc -o server server.o
-server.o:server.c
-	gcc -c server.c
-client:client.o
-	gcc -o client client.o
-client.o:client.c
-	gcc -c client.c
+
+#
+# Defines Part
+#
+CROSS ?=
+CC := $(CROSS)gcc
+CFLAGS := -ggdb3 -Wall -O0
+LDFLAGS := -lpthread -lm
+
+TARGET_SERVER := vaois_server
+TARGET_CLIENT := vaois_client
+
+.PHONY: all clean distclean
+
+#
+# Routines Part
+#
+all: $(TARGET_SERVER) $(TARGET_CLIENT)
+
+$(TARGET_SERVER): server.o
+	$(CC) $(LDFLAGS) $< -o $@
+
+$(TARGET_CLIENT): client.o
+	$(CC) $(LDFLAGS) $< -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+#
+# Cleanup Part
+#
 clean:
-	rm server server.o client client.o
+	rm -Rf *.o
+
+distclean: clean
+	rm -Rf $(TARGET_SERVER) $(TARGET_CLIENT)
+
+
