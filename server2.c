@@ -7,7 +7,7 @@
 
 #define PORT 7000
 
-static void handler(void *arg)
+static void * handler(void *arg)
 {
 	int pktlen = 0;
 	char buf[256];
