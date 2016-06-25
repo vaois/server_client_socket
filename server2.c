@@ -21,12 +21,15 @@ static void * handler(void *arg)
 	/**
 	 * 数据交互。
 	 */
+	for(;;){
 	pktlen = recv(s, buf, sizeof(buf), 0);
 	if (pktlen > 0) {
 		buf[pktlen] = '\0';
 		printf("Received Package: %s\n", buf);
 		send(s, buf, pktlen, 0);
-	}
+	}else
+	break;
+    }
 
 	/**
 	 * 退出线程。
